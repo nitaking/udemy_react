@@ -19,7 +19,7 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={e => this.handleSubmit(e)}>
       <input
         type="text"
         value={this.state.place}
