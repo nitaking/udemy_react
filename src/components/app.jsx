@@ -18,6 +18,13 @@ class App extends Component {
       .get(GEOCODE_ENDPOINT, { params: { address: place } })
       .then((results) => {
         console.log(results);
+        const result = results.data.results[0];
+        const location = result.geometry.location;
+        this.setState({
+          address: result.formatted_address,
+          lat: location.lat,
+          lng: location.lng,
+        });
       });
   }
 
