@@ -8,7 +8,6 @@ const GeocodeResult = ({ address, lat, lng }) => (
   </ul>
 );
 
-
 GeocodeResult.propTypes = {
   address: PropTypes.string,
   lat: PropTypes.number,
