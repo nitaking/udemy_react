@@ -38,7 +38,14 @@ class App extends Component {
             });
             break;
           }
-          default:
+          default: {
+            this.setState({
+              address: 'エラーが発生しました。',
+              lat: 0,
+              lng: 0,
+            });
+            break;
+          }
         }
       });
   }
