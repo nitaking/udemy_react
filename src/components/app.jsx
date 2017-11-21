@@ -13,6 +13,14 @@ class App extends Component {
     };
   }
 
+  setErrorMessage(message) {
+    this.setState({
+      address: message,
+      lat: 0,
+      lng: 0,
+    });
+  }
+
   handlePlaceSubmit(place) {
     axios
       .get(GEOCODE_ENDPOINT, { params: { address: place } })
@@ -31,22 +39,17 @@ class App extends Component {
             break;
           }
           case 'ZERO_RESULTS': {
-            this.setState({
-              address: '結果がみつかりませんでした。',
-              lat: 0,
-              lng: 0,
-            });
+            this.setErrorMessage('結果がみつかりませんでした。');
             break;
           }
           default: {
-            this.setState({
-              address: 'エラーが発生しました。',
-              lat: 0,
-              lng: 0,
-            });
+            this.setErrorMessage('エラーが発生しました。');
             break;
           }
         }
+      })
+      .catch(() => {
+        this.setErrorMessage('通信に失敗しました。');
       });
   }
 
