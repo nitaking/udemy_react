@@ -17,8 +17,8 @@ class App extends Component {
         lng: 139.7454329,
       },
       hotels: [
-        { name: '品川プリンスホテル' },
-        { name: 'アパホテル' },
+        { id: 111, name: '品川プリンスホテル' },
+        { id: 222, name: 'アパホテル' },
       ],
     };
   }

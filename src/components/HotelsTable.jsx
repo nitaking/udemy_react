@@ -6,7 +6,7 @@ import HotelRow from './HotelRow';
 const HotelsTable = ({ hotels }) => (
   <table>
     <tr><th>ホテル名</th></tr>
-    {hotels.map(hotel => (<HotelRow hotel={hotel} />))}
+    {hotels.map(hotel => (<HotelRow key={hotel.id} hotel={hotel} />))}
   </table>
 );
 
