@@ -17,8 +17,8 @@ class App extends Component {
         lng: 139.7454329,
       },
       hotels: [
-        { id: 111, name: '品川プリンスホテル' },
-        { id: 222, name: 'アパホテル' },
+        { id: 111, name: '品川プリンスホテル', url: 'https://google.com' },
+        { id: 222, name: 'アパホテル', url: 'https://google.com' },
       ],
     };
   }
@@ -63,11 +63,12 @@ class App extends Component {
         <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
         <div className="result-area">
           <Map location={this.state.location} />
-          <div>
+          <div className="result-right">
             <GeocodeResult
               address={this.state.address}
               location={this.state.location}
             />
+            <h2>ホテル検索結果</h2>
             <HotelsTable hotels={this.state.hotels} />
           </div>
         </div>
