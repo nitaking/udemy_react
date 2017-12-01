@@ -14,4 +14,14 @@ export const searchHotelByLocation = (location) => {
     .then((result) => {
       console.log(result);
     });
+    .then(result =>
+      result.data.hotels.map((hotel) => {
+        console.log(result);
+        const basicInfo = hotel.hotel[0].hotelBasicInfo;
+        return {
+          id: basicInfo.hotelNo,
+          name: basicInfo.hotelName,
+          url: basicInfo.hotelInformationUrl,
+        };
+      }));
 };
