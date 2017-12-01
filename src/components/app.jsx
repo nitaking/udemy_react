@@ -17,10 +17,6 @@ class App extends Component {
         lat: 35.6585805,
         lng: 139.7454329,
       },
-      hotels: [
-        { id: 111, name: '品川プリンスホテル', url: 'https://google.com' },
-        { id: 222, name: 'アパホテル', url: 'https://google.com' },
-      ],
     };
   }
 

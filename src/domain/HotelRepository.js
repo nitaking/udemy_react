@@ -11,9 +11,6 @@ export const searchHotelByLocation = (location) => {
     longitude: location.lng,
   };
   return Rakuten.Travel.simpleHotelSearch(params)
-    .then((result) => {
-      console.log(result);
-    });
     .then(result =>
       result.data.hotels.map((hotel) => {
         console.log(result);
@@ -22,6 +19,7 @@ export const searchHotelByLocation = (location) => {
           id: basicInfo.hotelNo,
           name: basicInfo.hotelName,
           url: basicInfo.hotelInformationUrl,
+          thumbUrl: basicInfo.hotelThumbnailUrl,
         };
       }));
 };
