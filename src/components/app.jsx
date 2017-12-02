@@ -1,69 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import SearchForm from './SearchForm';
-import GeocodeResult from './GeocodeResult';
-import Map from './Map';
+import SearchPage from './SearchPage';
 
-import { geocode } from '../domain/Geocoder';
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: {
-        // 東京タワーの緯度/経度
-        lat: 35.6585805,
-        lng: 139.7454329,
-      },
-    };
-  }
-
-  setErrorMessage(message) {
-    this.setState({
-      address: message,
-      location: {
-        lat: 0,
-        lng: 0,
-      },
-    });
-  }
-
-  handlePlaceSubmit(place) {
-    geocode(place)
-      .then(({ status, address, location }) => {
-        switch (status) {
-          case 'OK': {
-            this.setState({ address, location });
-            break;
-          }
-          case 'ZERO_RESULTS': {
-            this.setErrorMessage('結果がみつかりませんでした。');
-            break;
-          }
-          default: {
-            this.setErrorMessage('エラーが発生しました。');
-            break;
-          }
-        }
-      })
-      .catch(() => {
-        this.setErrorMessage('通信に失敗しました。');
-      });
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>緯度経度検索</h1>
-        <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
-        <GeocodeResult
-          address={this.state.address}
-          location={this.state.location}
-        />
-        <Map location={this.state.location} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div className="app">
+    <ul className="left-navi">
+      <li><a href="/">ホテル検索</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <SearchPage />
+  </div>
+);
 
 export default App;
