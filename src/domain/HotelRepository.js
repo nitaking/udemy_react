@@ -16,7 +16,6 @@ export const searchHotelByLocation = (location) => {
     .then(result =>
       result.data.hotels.map((hotel) => {
         const basicInfo = hotel.hotel[0].hotelBasicInfo;
-        // const price = basicInfo.hotelMinCharge;
         const distance = geolib.getDistance(
           { latitude: location.lat, longitude: location.lng },
           { latitude: basicInfo.latitude, longitude: basicInfo.longitude },
