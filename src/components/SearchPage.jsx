@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import queryString from 'query-string';
 
 import SearchForm from './SearchForm';
 import GeocodeResult from './GeocodeResult';
@@ -25,6 +26,15 @@ class SearchPage extends Component {
     };
   }
 
+  componentDidMount() {
+    const params = queryString.parse(this.props.location.search);
+    const place = params.place;
+    if (place && place.length > 0) {
+      this.startSearch(place);
+    }
+    console.log(params);
+  }
+
   setErrorMessage(message) {
     this.setState({
       address: message,
@@ -36,7 +46,11 @@ class SearchPage extends Component {
   }
 
   handlePlaceSubmit(place) {
-    this.props.history.push(`/?query=${place}`);
+    this.props.history.push(`/?place=${place}`);
+    this.startSearch(place);
+  }
+
+  startSearch(place) {
     geocode(place)
       .then(({ status, address, location }) => {
         switch (status) {
@@ -97,6 +111,7 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  location: PropTypes.shape({ search: PropTypes.string }).isRequired,
 };
 
 export default SearchPage;
