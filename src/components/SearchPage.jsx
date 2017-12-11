@@ -17,6 +17,7 @@ class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      place: this.getPlaceParam() || '東京タワー',
       location: {
         // 東京タワーの緯度/経度
         lat: 35.6585805,
@@ -27,12 +28,19 @@ class SearchPage extends Component {
   }
 
   componentDidMount() {
+    const place = this.getPlaceParam();
+    if (place) {
+      this.startSearch(place);
+    }
+  }
+
+  getPlaceParam() {
     const params = queryString.parse(this.props.location.search);
     const place = params.place;
     if (place && place.length > 0) {
-      this.startSearch(place);
+      return place;
     }
-    console.log(params);
+    return null;
   }
 
   setErrorMessage(message) {
@@ -45,13 +53,18 @@ class SearchPage extends Component {
     });
   }
 
-  handlePlaceSubmit(place) {
-    this.props.history.push(`/?place=${place}`);
-    this.startSearch(place);
+  handlePlaceChange(place) {
+    this.setState({ place });
   }
 
-  startSearch(place) {
-    geocode(place)
+  handlePlaceSubmit(e) {
+    e.preventDefault();
+    this.props.history.push(`/?place=${this.state.place}`);
+    this.startSearch();
+  }
+
+  startSearch() {
+    geocode(this.state.place)
       .then(({ status, address, location }) => {
         switch (status) {
           case 'OK': {
@@ -88,7 +101,11 @@ class SearchPage extends Component {
     return (
       <div className="search-page">
         <h1 className="app-title">ホテル検索</h1>
-        <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
+        <SearchForm
+          place={this.state.place}
+          onPlaceChange={place => this.handlePlaceChange(place)}
+          onSubmit={(e) => this.handlePlaceSubmit(e)}
+        />
         <div className="result-area">
           <Map location={this.state.location} />
           <div className="result-right">
