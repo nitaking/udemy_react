@@ -36,7 +36,7 @@ class SearchPage extends Component {
 
   getPlaceParam() {
     const params = queryString.parse(this.props.location.search);
-    const place = params.place;
+    const { place } = params;
     if (place && place.length > 0) {
       return place;
     }
@@ -104,7 +104,7 @@ class SearchPage extends Component {
         <SearchForm
           place={this.state.place}
           onPlaceChange={place => this.handlePlaceChange(place)}
-          onSubmit={(e) => this.handlePlaceSubmit(e)}
+          onSubmit={(e) => { this.handlePlaceSubmit(e); }}
         />
         <div className="result-area">
           <Map location={this.state.location} />
