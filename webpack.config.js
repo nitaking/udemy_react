@@ -4,11 +4,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const publidDir = path.join(__dirname, '/public');
 module.exports = [
   {
+    // ビルドの起点
     entry: [
       './src/index.jsx',
     ],
     output: {
       path: publidDir,
+      // 出力先パス
       publicPath: '/',
       filename: 'bundle.js',
     },

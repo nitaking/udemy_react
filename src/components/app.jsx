@@ -1,46 +1,27 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+} from 'react-router-dom';
 
-import SearchForm from './SearchForm';
-import GeocodeResult from './GeocodeResult';
+import SearchPage from './SearchPage';
+import AboutPage from './AboutPage';
 
-const GEOCODE_ENDPOINT = 'https://maps.googleapis.com/maps/api/geocode/json';
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  handlePlaceSubmit(place) {
-    axios
-      .get(GEOCODE_ENDPOINT, { params: { address: place } })
-      .then((results) => {
-        console.log(results);
-        const result = results.data.results[0];
-        const location = result.geometry.location;
-        this.setState({
-          address: result.formatted_address,
-          lat: location.lat,
-          lng: location.lng,
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>緯度経度検索</h1>
-        <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
-        <GeocodeResult
-          address={this.state.address}
-          lat={this.state.lat}
-          lng={this.state.lng}
-        />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div className="app">
+      <ul className="left-navi">
+        <li><Link to="/">ホテル検索</Link></li>
+        <li><Link to="/about">About</Link></li>
+      </ul>
+      <Switch>
+        <Route exact path="/" component={SearchPage} />
+        <Route exact path="/about" component={AboutPage} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;
