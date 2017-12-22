@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import queryString from 'query-string';
 
-import SearchForm from './SearchForm';
-import GeocodeResult from './GeocodeResult';
-import Map from './Map';
-import HotelsTable from './HotelsTable';
+import SearchForm from '../containers/SearchForm';
+// import GeocodeResult from './GeocodeResult';
+// import Map from './Map';
+// import HotelsTable from './HotelsTable';
 
 import { geocode } from '../domain/Geocoder';
 import { searchHotelByLocation } from '../domain/HotelRepository';
 
 const sortedHotels = (hotels, sortKey) => _.sortBy(hotels, h => h[sortKey]);
+
 
 class SearchPage extends Component {
   constructor(props) {
@@ -28,10 +29,10 @@ class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const place = this.getPlaceParam();
-    if (place) {
-      this.startSearch(place);
-    }
+    // const place = this.getPlaceParam();
+    // if (place) {
+    //   this.startSearch(place);
+    // }
   }
 
   getPlaceParam() {
@@ -51,11 +52,6 @@ class SearchPage extends Component {
         lng: 0,
       },
     });
-  }
-
-  handlePlaceChange(e) {
-    e.preventDefault();
-    this.props.onPlaceChange(e.target.value);
   }
 
   handlePlaceSubmit(e) {
@@ -99,12 +95,11 @@ class SearchPage extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="search-page">
         <h1 className="app-title">ホテル検索</h1>
         <SearchForm
-          place={this.props.place}
-          onPlaceChange={e => this.handlePlaceChange(e)}
           onSubmit={e => this.handlePlaceSubmit(e)}
         />
         {/*
